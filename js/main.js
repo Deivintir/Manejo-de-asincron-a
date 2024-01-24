@@ -41,11 +41,11 @@ const wellcomeMessage = (user, printMessage) => {
     setTimeout(()=>{                                //Retrasamos la ejecución del bloque 2 segundos
         printMessage(user);                         //para simular el proceso asíncrono, la siguiente 
     }, 2000);                                       //instrucción definida en el console.log() se ejecutará
-    console.log('Bienvenid@ a nuestra web');        //antes que la callback.
 }
+console.log('Bienvenid@ a nuestra web');        //antes que la callback.
 login('Manuel', (user) => {
     console.log('Hola ' + user);
 })
 login('Manuel', (user) => {
     console.log('Hello ' + user);
-})//Debugar el setTimeout para que se muestre el mensaje de la funcion wellcomMessage.
+})
