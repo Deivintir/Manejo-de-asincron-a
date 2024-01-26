@@ -49,3 +49,38 @@ login('Manuel', (user) => {
 login('Manuel', (user) => {
     console.log('Hello ' + user);
 })
+//Ahora, como rerasamos 2 segundos la ejecución de la instrucción de la función callback para simular un proceso asíncrono, 
+//la siguiente instrucción definida en el console.log se ejecuará antes que la callback.
+
+
+
+//PROMESAS.
+/*Las funciones callback son una forma sencilla y muy utilizada para el manejo de asincronía en JavaScript,
+pero presentan un problema cuando se tiene que realizar una sucesión de tareas que se ejecutan en el orden de las respuestas
+asíncronas de peticiones, ya que, en estos casos, se tienen que ir anidando las funciones callback unas dentro de otras.*/
+/*Para estos casos, el anidado de funciones supone una complejidad excesiva; constituye lo que se denomina callback hell
+y crea un bloque difícil de mantener y evolucionar. Para evitar esto, ECMAScript2015 incorpora una nueva manera de manejar
+la asincronía: las promesas.*/
+//Una promesa es un objeto instanciado de la calse global Promise que dispone de una serie de métodos para gestionar los valores 
+//que recibirá en un futuro,es decir, cuando se reciba el valor de una respuesta en una tarea asíncrona.
+let pilots = ['Alex Crivillé', 'Valentino rossi', 'Marc Márquez', 'Max Viaggi']; //Array fuente de datos.
+const getPilot = (position, seconds) => { //La funcion getPilot
+    return new Promise((resolve, reject) => { //objeto instanciado Promise
+        if (position < 1 || position >= pilots.length+1){ // condicional que no permite posiciones inexistentes
+            reject({mensaje:'Posición no válida.'}) //Método que detecta irregularidades y arroja mensaje de error
+        }
+        setTimeout(() =>{//establece un delay en la ejecución 
+            resolve({pilot: pilots[position-1]}) //Método que resuelve el callback si es correcto
+        },seconds * 1000) // establecemos el parametro delay en milisegundos recibiendo la entrada y multiplicandolo por 1000
+    })
+}
+/*La primera parte del uso de promesas está lista, pero necesitamos llamar a la función que devuelve una promesa para completar su uso.*/
+getPilot(4, 3)
+    .then(data => {
+        console.log(data);
+        return data.pilot;
+    })
+    .then(data => {
+        console.log('Hola ' + data);
+    })
+    .catch(error => console.error(error));
